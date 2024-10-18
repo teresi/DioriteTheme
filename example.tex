@@ -1,0 +1,341 @@
+\documentclass[beamer, table]{./Diorite}
+% beamer class options:
+	% beamer          default
+	% second          typeset second screen
+	% handout         slide handouts (no animations etc.)
+	% trans           transparencies
+	% article         transfer control to another class
+	% presentation    all modes except article
+	% table           enable colortbl (colors in the table)
+
+
+\setbeamercovered{transparent}  % overlay spec, covered items are translucent
+\setbeameroption{hide notes}    % Only slides
+
+\graphicspath{{./img/}}     % search path(s) for `\includegraphics`
+\day=01\relax
+\month=07\relax
+\year=2021\relax
+
+\authoremail{author.email}   % value for `\insertauthoremail`
+\authorname{author.name}                 %
+
+
+\logowidth{0.13\paperwidth}             % value for logo width and sidebar
+\logoheight{0.14\paperheight}           % value for logo height and sidebar
+\logoimage{logo}                        % value for logo path
+
+\makeglossaries
+
+\hypersetup{
+	colorlinks=true,
+	citecolor=cyan,
+	menucolor=white, % also used in sidebar
+	urlcolor=purple,
+	linkcolor=blue,
+}
+
+\newacronym{KSLOC}{KSLoC}{Thousand Lines of Code}
+\newacronym{mAP}{mAP}{mean Average Precision}
+\glsaddall
+
+%\addbibresource{./bib.bib}
+
+
+\authoremail{\texttt{author.email}}   % value for `\insertauthoremail`
+\authorname{\texttt{author.name}}
+\newcommand\authorphone{\texttt{author.phone}}
+\newcommand\authortitle{\texttt{author.title}}
+\author{author.name}
+% b/c hyperref uses 'linkcolor' for the short title, specify color here
+% use hyper=false
+% \textcolor{white}{\acs[hyper=false]{MyAcronym}
+\title[\textcolor{white}{title.shorttitle}]{title.longtitle}
+\subtitle{\texttt{title.subtitle}}
+
+\date[January 2022]
+{
+	\texttt{author.institute}
+}
+
+\distributionstatement{\texttt{Distribution}}  % e.g. distro A/B/C...
+
+\newcommand\pro{\item[\textcolor{green}{$+$}]}
+\newcommand\con{\item[\textcolor{red}{$-$}]}
+
+\setbeamerfont{section in sidebar}{size=\fontsize{9}{9}\selectfont}
+\setbeamerfont{subsection in sidebar}{size=\fontsize{7}{7}\selectfont}
+\setbeamerfont{author in sidebar}{size=\fontsize{7}{7}\selectfont}
+
+\addtocounter{framenumber}{-1}  % start counter at zero
+
+\makeatletter
+\defbeamertemplate*{title page}{myTitle}[1][]
+{
+	\vfill
+	\begingroup
+		\centering
+			\begin{beamercolorbox}[sep=8pt,center,#1]{title}
+			\usebeamerfont{title}\inserttitle\par%
+			\ifx\insertsubtitle\@empty\relax%
+			\else%
+			\vskip0.25em%
+			{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+			\fi%
+		\end{beamercolorbox}%
+		\vskip1em\par
+
+		\begin{columns}
+
+		\hfill
+		\begin{column}{0.5\canvaswidth} %
+			\begin{beamercolorbox}[sep=8pt,center,#1]{author}
+				\usebeamerfont{author}\textcolor{black}{\insertauthorname, \authortitle}
+				\usebeamerfont{institute}\\ \insertauthoremail \\ \authorphone
+			\end{beamercolorbox}
+			\begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+				\usebeamerfont{institute}\insertinstitute
+			\end{beamercolorbox}
+			\begin{beamercolorbox}[sep=8pt,center,#1]{date}
+				\usebeamerfont{date}\insertdate
+			\end{beamercolorbox}\vskip0.5em
+			{\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+		\end{column}
+		\hfill
+		\begin{column}{0.5\canvaswidth} %
+			\begin{scriptsize}
+			\lipsum[4]
+			\end{scriptsize}
+		\end{column}
+		\hfill
+		\end{columns}
+	\endgroup
+	\vfill
+}
+\setbeamertemplate{title page}[myTitle][rounded=true]\makeatother
+
+
+% uncovergraphics needs 'background' color defined
+% this may / may-not be defined by your beamer theme
+\definecolor{background}{rgb}{0.0,0.0,0.0}
+\newcommand<>{\uncovergraphics}[2][{}]{
+    % SEE: https://tex.stackexchange.com/a/354033/95423
+    \begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (B) at (4,0)
+        {\includegraphics[#1]{#2}};
+    \alt#3{}{%
+        \fill [draw=none, fill=background, fill opacity=0.9] (B.north west) -- (B.north east) -- (B.south east) -- (B.south west) -- (B.north west) -- cycle;
+    }
+    \end{tikzpicture}
+}
+
+
+
+
+
+
+
+\begin{document}
+
+\begin{frame}{\CUI}{\vspace{\baselineskip}}
+	\maketitle
+\end{frame}
+
+\section{Section I}
+\subsection{Subsection i}
+\begin{frame}{\centerline{CUI}}{the second brackets are for the sub title}
+	You can do numbered lists with \texttt{enumerate}
+	\begin{enumerate}
+		\item enumeration 1
+		\item enumeration 2
+	\end{enumerate}
+	You can do lists with \texttt{itemize}
+	\begin{itemize}
+		\item item 1
+		\item item 2
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{A vbox around a list will stretch the contents}{}
+\vbox to 0.99\textheight{%
+	You can do numbered lists with \texttt{enumerate}
+	\begin{enumerate}
+		\item enumeration 1
+		\item enumeration 2
+	\end{enumerate}
+	You can do lists with \texttt{itemize}
+	\begin{itemize}
+		\item item 1
+		\item item 2
+	\end{itemize}
+}
+\end{frame}
+
+\section{Section II}
+\subsection{Subsection i}
+\begin{frame}{You can use columns}{you can specify column widths}
+make a \texttt{columns} environment, then specify each column with a \texttt{column} environment or command\\
+\noindent
+	\begin{columns}
+	\hfill
+	\begin{column}{0.40\textwidth}
+		$40\%$ width
+		\begin{itemize}
+			\item content
+			\item content
+			\item content
+		\end{itemize}
+	\end{column}
+	\hfill%
+	\begin{column}{0.60\textwidth}
+		$60\%$ width
+		\begin{itemize}
+			\item content
+			\item content
+			\item content
+		\end{itemize}
+	\end{column}
+	\hfill%
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{You can use a vbox to align}{}
+\begin{minipage}[t]{\linewidth}
+\vbox to \textheight{%
+\noindent
+use a vbox to align to the top\\
+extra will be cutoff (w/ and w/o a vbox), it is your responsibility to make sure the content fits
+\begin{columns}[T]
+	\hfill
+	\begin{column}{0.75\textwidth}
+		$75\%$ width\\
+		\lipsum[1]
+	\end{column}
+	\hfill%
+	\begin{column}{0.25\textwidth}
+		$25\%$ width\\
+		\lipsum[11]
+	\end{column}
+	\hfill%
+\end{columns}
+}
+\end{minipage}
+\end{frame}
+
+
+% \section{video}
+%
+% \subsection{multimedia}
+%
+% \begin{frame}{multimedia}{mov}
+% \begin{centering}
+% \movie[width=0.9\textwidth,height=0.9\textheight,showcontrols,poster]
+% 	{\includegraphics[width=0.9\textwidth,height=0.9\textheight]{movie_icon}}
+% 	{countdown.avi}
+% \end{centering}
+% \end{frame}
+% \begin{frame}{multimedia}{flv}
+% \begin{centering}
+% 	\movie[width=0.9\textwidth,height=0.9\textheight,showcontrols,poster]
+% 	{\includegraphics[width=0.9\textwidth,height=0.9\textheight]{movie_icon}}
+% 	{countdown.flv}
+% \end{centering}
+% \end{frame}
+% \begin{frame}{multimedia}{mp4}
+% \begin{centering}
+% 	\movie[width=0.9\textwidth,height=0.9\textheight,showcontrols,poster]
+% 	{\includegraphics[width=0.9\textwidth,height=0.9\textheight]{movie_icon}}
+% 	{countdown.mp4}
+% \end{centering}
+% \end{frame}
+% \begin{frame}{multimedia}{avi}
+% \begin{centering}
+% 	\movie[width=0.9\textwidth,height=0.9\textheight,showcontrols,poster]
+% 	{\includegraphics[width=0.9\textwidth,height=0.9\textheight]{movie_icon}}
+% 	{countdown.avi}
+% \end{centering}
+% \end{frame}
+%
+%
+%
+% \subsection{media9}
+%
+% \begin{frame}{media9}{mov}
+% \begin{centering}
+% \includemedia[
+% 	width=0.8\linewidth,
+% 	totalheight=0.8\textheight,
+% 	activate=onclick,
+% 	passcontext,  %show VPlayer's right-click menu
+% 	addresource=countdown.mov,
+% 	flashvars={
+% 		%important: same path as in `addresource'
+% 		source=countdown.mov
+% 	}
+% ]{\fbox{Click!}}{VPlayer.swf}
+% \end{centering}
+% \end{frame}
+% \begin{frame}{media9}{flv}
+% \begin{centering}
+% 	\includemedia[
+% 	width=0.8\linewidth,
+% 	totalheight=0.8\textheight,
+% 	activate=onclick,
+% 	passcontext,  %show VPlayer's right-click menu
+% 	addresource=countdown.flv,
+% 	flashvars={
+% 		%important: same path as in `addresource'
+% 		source=countdown.flv
+% 	}
+% 	]{\fbox{Click!}}{VPlayer.swf}
+% \end{centering}
+% \end{frame}
+% \begin{frame}{media9}{mp4}
+% \begin{centering}
+% 	\includemedia[
+% 	width=0.8\linewidth,
+% 	totalheight=0.8\textheight,
+% 	activate=onclick,
+% 	passcontext,  %show VPlayer's right-click menu
+% 	addresource=countdown.mp4,
+% 	flashvars={
+% 		%important: same path as in `addresource'
+% 		source=countdown.mp4
+% 	}
+% 	]{\fbox{Click!}}{VPlayer.swf}
+% \end{centering}
+% \end{frame}
+% \begin{frame}{media9}{avi}
+% \begin{centering}
+% 	\includemedia[
+% 	width=0.8\linewidth,
+% 	totalheight=0.8\textheight,
+% 	activate=onclick,
+% 	passcontext,  %show VPlayer's right-click menu
+% 	addresource=countdown.avi,
+% 	flashvars={
+% 		%important: same path as in `addresource'
+% 		source=countdown.avi
+% 	}
+% 	]{\fbox{Click!}}{VPlayer.swf}
+% \end{centering}
+% \end{frame}
+
+
+
+% APPENDIX % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\appendix
+\section{Appendix}
+\subsection{Citations}
+\begin{frame}[allowframebreaks]
+	\frametitle{Citations}
+	{\footnotesize
+	\setbeamertemplate{bibliography item}{\insertbiblabel} %number bib items
+	%\bibliographystyle{ieeetr}
+	%\bibliography{bib}
+	}
+\end{frame}
+
+
+\end{document}
